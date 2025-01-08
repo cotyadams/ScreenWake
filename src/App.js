@@ -1,22 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import NoSleep from 'nosleep.js';
 
 function App() {
+  var noSleep = new NoSleep();
+
+  const toggleSleep = () => {
+    if (!noSleep.enabled) {
+      noSleep.enable();
+    } else {
+      noSleep.disable()
+    }
+  }
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>NoSleep Page</h1>
+        <label class="switch">
+          <input type="checkbox" onClick={toggleSleep}/>
+          <span class="slider round"></span>
+        </label>
       </header>
     </div>
   );
