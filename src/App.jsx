@@ -6,26 +6,26 @@ import React, {useState} from 'react';
 function App() {
   // create a new NoSleep object
   let [isOn, setIsOn] = useState();
-  var noSleep = new NoSleep();
+  const noSleep = new NoSleep();
 
   // toggle no sleep functionality based on the NoSleep object
-  const toggleSleep = async () => {
-    if (!isOn) {
-      await noSleep.enable().then(setIsOn(true));
+  const toggleSleep = () => {
+    if (!noSleep.enabled) {
+      noSleep.enable();
     } else {
       noSleep.disable();
-      setIsOn(false);
     }
     }
   return (
     <div className="App">
       <header className="App-header">
         <h1>NoSleep Page</h1>
-        <OnOffSwitch isOn={isOn} />
+        <OnOffSwitch isOn={noSleep.enabled} />
+
         {/* creates the switch box*/}
-        <label class="switch">
-          <input type="checkbox" onClick={() => toggleSleep()}/>
-          <span class="slider round"></span>
+        <label className="switch">
+          <input type="checkbox" onClick={toggleSleep}/>
+          <span className="slider round"></span>
         </label>
       </header>
     </div>
