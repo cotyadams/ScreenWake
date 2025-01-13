@@ -1,26 +1,27 @@
 import './App.css';
 import NoSleep from 'nosleep.js';
 import OnOffSwitch from './OnOffSwitch';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 
 function App() {
   // create a new NoSleep object
-  let [isOn, setIsOn] = useState();
-  const noSleep = new NoSleep();
+  let [isOn, setIsOn] = useState(false);
+  const noSleep = useRef(new NoSleep());
 
   // toggle no sleep functionality based on the NoSleep object
   const toggleSleep = () => {
-    if (!noSleep.enabled) {
-      noSleep.enable();
+    if (!isOn) {
+      noSleep.current.enable().then(() => setIsOn(true));
     } else {
-      noSleep.disable();
+      noSleep.current.disable();
+      setIsOn(false)
     }
     }
   return (
     <div className="App">
       <header className="App-header">
         <h1>NoSleep Page</h1>
-        <OnOffSwitch isOn={noSleep.enabled} />
+        <OnOffSwitch isOn={isOn} />
 
         {/* creates the switch box*/}
         <label className="switch">
